@@ -1,0 +1,20 @@
+# Ignore compiled simulation output
+usb_sim.out
+
+# Ignore waveform files
+sim/*.vcd
+
+# Ignore GTKWave savefiles (optional)
+*.gtkw
+
+# Backup files from editors
+*~
+*.swp
+*.swo
+
+# VS Code workspace files (optional)
+.vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
