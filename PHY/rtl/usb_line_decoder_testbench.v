@@ -1,8 +1,8 @@
 `timescale 1ns / 1ps
 
 ////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer:
+// Company: Department of COmputer Engineering, KNUST
+// Engineer:	Maruf Usman
 //
 // Create Date:   11:29:21 07/09/2025
 // Design Name:   usb_line_decoder
