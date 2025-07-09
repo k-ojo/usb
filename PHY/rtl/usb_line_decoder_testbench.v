@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 ////////////////////////////////////////////////////////////////////////////////
-// Company: Department of COmputer Engineering, KNUST
+// Company: Department of Computer Engineering, KNUST
 // Engineer:	Maruf Usman
 //
 // Create Date:   11:29:21 07/09/2025
