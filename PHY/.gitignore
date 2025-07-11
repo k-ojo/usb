@@ -1,20 +1,49 @@
-# Ignore compiled simulation output
-usb_sim.out
+# Build directory
+build/
+*.vcd
+*.vvp
 
-# Ignore waveform files
-sim/*.vcd
+# Simulation logs
+*.log
+*.out
+*.bak
 
-# Ignore GTKWave savefiles (optional)
+# GTKWave files
 *.gtkw
 
-# Backup files from editors
+# Editor/OS files
 *~
 *.swp
-*.swo
-
-# VS Code workspace files (optional)
-.vscode/
-
-# OS-specific files
 .DS_Store
 Thumbs.db
+
+# Xilinx ISE / Vivado (if you use them)
+xilinx_project/
+*.xpr
+*.xise
+*.ngc
+*.ncd
+*.bit
+*.bin
+*.jou
+*.log
+*.str
+*.xml
+*.cache
+*.runs
+*.hw
+
+# Quartus (if used)
+*.rpt
+*.qws
+*.qpf
+*.qsf
+*.sopcinfo
+*.bak
+
+# VS Code and IDE settings
+.vscode/
+.idea/
+
+# Auto-generated folders
+__pycache__/

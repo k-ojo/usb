@@ -2,24 +2,9 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // Company: Department of Computer Engineering, KNUST
-// Engineer:	Maruf Usman
+// Engineer: Maruf Usman
 //
-// Create Date:   11:29:21 07/09/2025
-// Design Name:   usb_line_decoder
-// Module Name:   C:/Users/HP/Desktop/Xilinx/usb-main/usb_line_decoder_testbench.v
-// Project Name:  usb-main
-// Target Device:  
-// Tool versions:  
-// Description: 
-//
-// Verilog Test Fixture created by ISE for module: usb_line_decoder
-//
-// Dependencies:
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
+// Testbench for: usb_line_decoder
 ////////////////////////////////////////////////////////////////////////////////
 
 module usb_line_decoder_testbench;
@@ -39,22 +24,23 @@ module usb_line_decoder_testbench;
 	);
 
 	initial begin
+		$dumpfile("build/wave.vcd");
+		$dumpvars(0, usb_line_decoder_testbench);
+
 		// Initialize Inputs
-		#100;
 		usb_dp = 0;
 		usb_dn = 0;
-
-		// Wait 100 ns for global reset to finish
 		#100;
-      usb_dp = 1;
+
+		usb_dp = 1;
 		usb_dn = 0;
-
 		#100;
+
 		usb_dp = 0;
 		usb_dn = 1;
-		// Add stimulus here
+		#100;
 
+		$finish;
 	end
-      
-endmodule
 
+endmodule

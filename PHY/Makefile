@@ -1,50 +1,46 @@
-# === File: Makefile ===
+# Project folders
+RTL_DIR := rtl
+SIM_DIR := sim
+BUILD_DIR := build
 
-# Compiler and viewer
-IVERILOG = iverilog
-VVP      = vvp
-GTKWAVE  = gtkwave
+# Toolchain
+IVERILOG := iverilog
+VVP := vvp
+GTKWAVE := gtkwave
 
-# Directories
-RTL_DIR = rtl
-SIM_DIR = sim
+# Simulation target name (without .v extension)
+TESTBENCH ?= usb_line_decoder_testbench
 
-# Files
-SRC = $(RTL_DIR)/usb_line_decoder.v \
-      $(RTL_DIR)/nrzi_decoder.v \
-      $(RTL_DIR)/bit_unstuffer.v \
-      $(RTL_DIR)/nrzi_encoder.v \
-      $(RTL_DIR)/bit_stuffer.v \
-      $(RTL_DIR)/usb_phy_rx.v \
-      $(RTL_DIR)/usb_phy_tx.v \
-      $(RTL_DIR)/usb_phy_top.v
-
-TB = $(SIM_DIR)/usb_tb.v
-
-OUT = usb_sim.out
-VCD = $(SIM_DIR)/waveforms.vcd
+# Paths
+SRC := $(wildcard $(RTL_DIR)/*.v)
+TB  := $(SIM_DIR)/$(TESTBENCH).v
+TARGET := $(BUILD_DIR)/$(TESTBENCH).vvp
+WAVEFORM := $(BUILD_DIR)/wave.vcd
 
 # Default target
 all: run
 
-# Compile the simulation
-build:
-	@echo "🔧 Compiling Verilog sources..."
-	$(IVERILOG) -g2012 -o $(OUT) $(SRC) $(TB)
+# Compile specific testbench
+$(TARGET): $(SRC) $(TB) | $(BUILD_DIR)
+	$(IVERILOG) -g2012 -o $@ $^
 
-# Run the simulation
-run: build
-	@echo "🚀 Running simulation..."
-	$(VVP) $(OUT)
+# Run simulation
+run: $(TARGET)
+	$(VVP) $<
 
-# Open waveform
-view:
-	@echo "👁️  Opening waveform in GTKWave..."
-	$(GTKWAVE) $(VCD) &
+# View waveform
+wave: $(WAVEFORM)
+	$(GTKWAVE) $<
 
-# Clean up output files
+# Generate waveform during simulation
+$(WAVEFORM): run
+
+# Create build directory
+$(BUILD_DIR):
+	mkdir -p $@
+
+# Clean
 clean:
-	@echo "🧹 Cleaning build artifacts..."
-	rm -f $(OUT) $(VCD)
+	rm -rf $(BUILD_DIR)
 
-.PHONY: all build run view clean
+.PHONY: all run wave clean
