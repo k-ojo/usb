@@ -2,7 +2,7 @@ module sync_detector (
     input wire clk,
     input wire reset,
     input wire [1:0] nrzi_input,
-    output wire ena_data
+    output wire sync_detected
 );
 
 parameter USB_LINE_IDLE = 2'b00;  // SE0
@@ -40,6 +40,6 @@ always @(posedge clk or posedge reset) begin
         state <= next_state;
 end
 
-assign ena_data = (state == I); // Sync pattern fully detected
+assign sync_detected = (state == I); // Sync pattern fully detected
 
 endmodule

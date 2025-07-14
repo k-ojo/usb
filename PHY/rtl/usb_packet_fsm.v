@@ -55,5 +55,4 @@ always @(posedge clk or posedge reset) begin
     else
         state <= next_state;
 end
-
 endmodule
