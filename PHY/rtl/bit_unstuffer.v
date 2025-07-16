@@ -31,7 +31,6 @@ always @(posedge clk or posedge reset) begin
             else
                 one_count <= 0;
 
-            // After 6 consecutive 1s, next bit is stuffed 0
             if (one_count == 6)
                 skip_next <= 1;
         end
