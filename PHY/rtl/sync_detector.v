@@ -20,13 +20,14 @@ reg [3:0] state = A, next_state;
 always @(*) begin
     next_state = A; // default fallback
     case (state)
+
         A: next_state = (nrzi_input == USB_LINE_K) ? B : A;
         B: next_state = (nrzi_input == USB_LINE_J) ? C : A;
         C: next_state = (nrzi_input == USB_LINE_K) ? D : A;
         D: next_state = (nrzi_input == USB_LINE_J) ? E : A;
         E: next_state = (nrzi_input == USB_LINE_K) ? F : A;
         F: next_state = (nrzi_input == USB_LINE_J) ? G : A;
-        G: next_state = (nrzi_input == USB_LINE_K) ? H : A;
+        G: next_state = (nrzi_input == USB_LINE_K) ? H : (nrzi_input == USB_LINE_J) ? F : A;
         H: next_state = (nrzi_input == USB_LINE_K) ? I : A;
         I: next_state = (nrzi_input == USB_LINE_SE0) ? A : I;
         default: next_state = A;
