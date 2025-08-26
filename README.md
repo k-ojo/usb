@@ -55,58 +55,6 @@ This project implements the physical layer (PHY) of the USB 1.1 specification in
                     │    (D+, D-, VCC, GND) │
                     └───────────────────────┘
 ```
-
-## Module Structure
-
-### Primary Modules
-
-- **`usb_phy_top.v`**: Top-level PHY module with system interfaces
-- **`nrzi_encoder.v`**: NRZI encoding for transmitted data
-- **`nrzi_decoder.v`**: NRZI decoding for received data
-- **`bit_stuffer.v`**: Bit stuffing insertion during transmission
-- **`bit_unstuffer.v`**: Bit stuffing removal during reception
-- **`line_state_detect.v`**: USB line state detection and classification
-- **`sop_eop_detect.v`**: Start/End of Packet detection logic
-- **`clock_recovery.v`**: Clock and data recovery from differential signals
-- **`diff_driver.v`**: Differential signal driver for transmission
-- **`diff_receiver.v`**: Differential signal receiver with hysteresis
-
-### Testbench and Verification
-
-- **`tb_usb_phy.v`**: Comprehensive testbench with stimulus generation
-- **`usb_model.v`**: USB host/device behavioral models for testing
-- **`test_vectors/`**: Pre-generated test patterns and expected responses
-
-## Interface Specification
-
-### Port Description
-
-```verilog
-module usb_phy_top (
-    // System Interface
-    input  wire        clk,              // System clock (48 MHz)
-    input  wire        rst_n,            // Active-low reset
-    
-    // Upper Layer Interface (UTMI-like)
-    input  wire [7:0]  tx_data,          // Transmit data byte
-    input  wire        tx_valid,         // Transmit data valid
-    input  wire        tx_ready,         // Ready to transmit
-    output wire [7:0]  rx_data,          // Received data byte
-    output wire        rx_valid,         // Received data valid
-    output wire        rx_active,        // Reception in progress
-    output wire        rx_error,         // Reception error
-    
-    // Configuration
-    input  wire        speed_select,     // 0: Low Speed, 1: Full Speed
-    input  wire        term_enable,      // Termination resistor enable
-    
-    // USB Physical Interface
-    inout  wire        usb_dp,           // USB D+ line
-    inout  wire        usb_dm,           // USB D- line
-    output wire        usb_oe            // Output enable
-);
-```
-
 ### Timing Specifications
 
 | Parameter | Low Speed | Full Speed | Unit |
@@ -163,28 +111,6 @@ Run all tests:
 make test
 ```
 
-## Implementation Results
-
-### Resource Utilization (Xilinx 7-Series)
-- **Logic Cells**: ~450 LUTs
-- **Flip-Flops**: ~280 FFs  
-- **Block RAM**: 0 BRAMs
-- **Clock Domains**: 1 (48 MHz system clock)
-
-### Performance Metrics
-- **Maximum Clock**: 100+ MHz (well above 48 MHz requirement)
-- **Propagation Delay**: < 10 ns (TX data to USB output)
-- **Setup/Hold Margins**: > 2 ns at 48 MHz
-
-## Verification Status
-
-| Test Category | Coverage | Status |
-|---------------|----------|---------|
-| Functional | 98.5% | ✅ Pass |
-| Code Coverage | 96.2% | ✅ Pass |
-| Timing | 100% | ✅ Pass |
-| USB Compliance | 100% | ✅ Pass |
-
 ## Known Limitations
 
 - **Single Port**: Currently supports single USB port (no hub functionality)
@@ -236,3 +162,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 *This project was developed as part of advanced digital design coursework, focusing on USB protocol implementation and FPGA-based system design.*
+
